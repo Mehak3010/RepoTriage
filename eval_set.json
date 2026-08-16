@@ -1,0 +1,44 @@
+{
+  "qa_cases": [
+    {
+      "question": "What are common causes of crash reports?",
+      "expect_keywords_any": ["crash", "freeze", "memory"],
+      "notes": "Should surface issues that mention crashes/freezes; sanity check that retrieval is topically on-target."
+    },
+    {
+      "question": "Are there any issues about settings sync not working across devices?",
+      "expect_keywords_any": ["sync", "settings", "profile"],
+      "notes": "Tests retrieval on a fairly specific, narrow topic rather than a broad one."
+    },
+    {
+      "question": "What issues mention extensions or plugins failing to load?",
+      "expect_keywords_any": ["extension", "plugin"],
+      "notes": "Checks the model correctly narrows to extension-related issues, not general bugs."
+    },
+    {
+      "question": "What is the capital of France?",
+      "expect_refusal_or_hedge": true,
+      "notes": "Out-of-domain question — the system prompt tells the model to say when context doesn't answer the question. This checks it doesn't hallucinate an answer from unrelated issues."
+    }
+  ],
+  "triage_cases": [
+    {
+      "title": "App crashes on save",
+      "body": "When I save a large file the app freezes and crashes.",
+      "expect_priority_in": ["high", "medium"],
+      "notes": "Crash-on-save is a real functionality bug — should not be triaged as low priority."
+    },
+    {
+      "title": "Typo in tooltip text on hover",
+      "body": "The tooltip says 'recieve' instead of 'receive'. Purely cosmetic.",
+      "expect_priority_in": ["low"],
+      "notes": "Trivial cosmetic issue — tests the model doesn't over-prioritize minor issues."
+    },
+    {
+      "title": "Settings Sync does not sync profile associations across machines",
+      "body": "Same bug as reported before — profile associations are lost when syncing settings between two machines.",
+      "expect_is_duplicate": true,
+      "notes": "Near-exact title match to a real issue already in the dataset (#329754) — checks duplicate detection works at all."
+    }
+  ]
+}
