@@ -25,6 +25,16 @@ minutes.
 4. You get an answer with issue numbers cited, or a priority/duplicate
    recommendation with reasoning
 
+## Screenshots
+
+**Ask mode** -- retrieval-augmented answers grounded in a repo's actual issues, with citations:
+
+![Ask mode](assets/screenshots/RT-ask.png)
+
+**Triage mode** -- priority suggestion and duplicate detection for a new issue:
+
+![Triage mode](assets/screenshots/RT-triage.png)
+
 ## What you need before you start
 
 Three free accounts, no credit card required for any of them:
