@@ -25,7 +25,7 @@ GitHub issues ──ingest.py──► data/issues.parquet
 
 ```bash
 pip install -r requirements.txt
-cp .env.example .env   # fill in GITHUB_TOKEN, QDRANT_URL, QDRANT_API_KEY, OPENAI_API_KEY
+cp .env.example .env   # fill in GITHUB_TOKEN, QDRANT_URL, QDRANT_API_KEY, GROQ_API_KEY
 export $(cat .env | xargs)   # or use a tool like direnv / python-dotenv
 ```
 
@@ -45,6 +45,13 @@ python3 embed.py --input data/issues.parquet --collection vscode_issues
 Embeds every issue locally (`all-MiniLM-L6-v2`, no API cost) and uploads to a Qdrant
 collection. Get a free Qdrant Cloud cluster at https://cloud.qdrant.io (1GB free tier
 is plenty for this dataset), or run Qdrant locally via `docker run -p 6333:6333 qdrant/qdrant`.
+
+> **LLM provider:** this project uses [Groq](https://console.groq.com) (`llama-3.3-70b-versatile`
+> by default) instead of OpenAI — Groq's API is OpenAI-compatible, so the `openai` Python SDK
+> is reused with `base_url` pointed at Groq's endpoint. Groq has a genuinely usable free tier
+> (no credit card) and much faster inference. Get a free key at https://console.groq.com/keys
+> and set `GROQ_API_KEY` in `.env`. Swap models via `GROQ_MODEL` — e.g. `llama-3.1-8b-instant`
+> for cheaper/faster at lower quality.
 
 ## Day 3 — LLM Q&A + triage reasoning
 
