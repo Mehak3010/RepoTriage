@@ -1,4 +1,4 @@
-# RepoTriage API — Day 5: containerized for deployment (Render/Railway/Fly.io/etc.)
+# RepoTriage API —  containerized for deployment (Render/Railway/Fly.io/etc.)
 FROM python:3.11-slim
 
 WORKDIR /app
