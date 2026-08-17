@@ -1,5 +1,5 @@
 """
-RepoTriage — Day 4: Evaluation harness
+RepoTriage — Evaluation harness
 
 Runs qa.py's answer_question / triage_issue against a hand-written eval set
 (eval_set.json) and checks simple, explicit properties — this is intentionally

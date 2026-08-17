@@ -34,7 +34,9 @@ from sentence_transformers import SentenceTransformer
 from dotenv import load_dotenv
 load_dotenv()
 
-MODEL_NAME = "all-MiniLM-L6-v2"
+MODEL_NAME = "all-MiniLM-L6-v2"  
+EMBEDDING_DIM = 384
+BATCH_SIZE = 64
 
 
 def load_data(path: str) -> pd.DataFrame:

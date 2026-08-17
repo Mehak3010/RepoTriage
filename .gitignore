@@ -16,6 +16,7 @@ env/
 data/raw/
 data/processed/
 data/query_log.csv
+data/repos/
 
 # Jupyter
 .ipynb_checkpoints/

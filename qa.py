@@ -39,13 +39,13 @@ from openai import OpenAI
 from qdrant_client import QdrantClient
 from sentence_transformers import SentenceTransformer
 
-MODEL_NAME = os.environ.get("GROQ_MODEL", "llama-3.3-70b-versatile")
+MODEL_NAME = os.environ.get("GROQ_MODEL", "openai/gpt-oss-120b")
 GROQ_BASE_URL = "https://api.groq.com/openai/v1"
 EMBED_MODEL_NAME = "all-MiniLM-L6-v2"  # must match embed.py — same vector space
 LOG_PATH = "data/query_log.csv"
 
 # Cache the embedding model across calls — SentenceTransformer load is slow (~1-2s), and
-# app.py (Day 4) calls get_clients() per-request, so without this it'd reload every time.
+# app.py calls get_clients() per-request, so without this it'd reload every time.
 _embed_model_cache: "SentenceTransformer | None" = None
 
 # Groq pricing per 1M tokens (as of mid-2026) — update if Groq changes rates.
