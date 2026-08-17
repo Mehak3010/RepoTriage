@@ -190,6 +190,78 @@ GitHub issues --ingest--> cleaned dataset
                     data/query_log.csv (cost/latency observability)
 ```
 
+## Troubleshooting
+
+Common issues a first-time setup runs into, and how to fix them.
+
+**`python3` is not recognized / opens the Microsoft Store (Windows)**
+
+Windows sometimes maps `python3` to a Store shortcut instead of your actual
+Python install. Use `python` instead, or `py` if that also fails:
+
+```
+python app.py
+# or
+py app.py
+```
+
+**`pip install` seems stuck / is taking a long time**
+
+This is expected the first time -- `sentence-transformers` pulls in `torch`,
+which is a large download (several hundred MB). Let it run; on a slow
+connection this can take a few minutes. It's not actually frozen.
+
+**`ERROR: missing environment variable(s): ...` even though your `.env` looks correct**
+
+Two common causes:
+- The `.env` file isn't actually named `.env` -- some editors (Notepad on
+  Windows especially) silently save it as `.env.txt`. Check the real
+  filename in a file explorer with extensions visible.
+- You edited `.env` while the server was already running. Environment
+  variables are only read once at startup -- stop the server (Ctrl+C) and
+  restart it after any `.env` change.
+
+**`model_not_found` / `does not exist or you do not have access to it`**
+
+Groq periodically deprecates older models. If `GROQ_MODEL` in your `.env`
+points at a model that's been retired, you'll get this error. Check
+https://console.groq.com/docs/models for the current list of supported
+models and update `GROQ_MODEL` accordingly, then restart the server.
+
+**`401 Unauthorized` when adding a repo**
+
+Your `GITHUB_TOKEN` is missing, expired, or lacks the right scope. Generate
+a fresh classic token at https://github.com/settings/tokens with the
+`public_repo` scope checked, update `.env`, and restart the server. You can
+sanity-check a token directly:
+
+```
+curl -H "Authorization: Bearer YOUR_TOKEN" https://api.github.com/user
+```
+
+If that also returns 401, the token itself is invalid.
+
+**Frontend shows "api offline" even though the backend terminal shows requests succeeding (200 OK)**
+
+This is a CORS issue -- the browser is blocking the response even though the
+server answered it. `app.py` already includes CORS middleware allowing all
+origins, so this shouldn't happen on a fresh clone, but if you've modified
+`app.py` and this comes back, make sure `CORSMiddleware` is still registered
+on the `FastAPI` app instance.
+
+**Frontend can't reach the backend at all**
+
+Make sure `frontend/.env` (a *separate* file from the backend's `.env`) has
+`VITE_API_URL=http://localhost:8000` and that you ran `cp .env.example .env`
+inside the `frontend/` folder specifically, not just the project root.
+
+**Copy-pasted code has broken syntax after pasting into your editor**
+
+Some Windows editors mangle certain Unicode characters (em dashes, smart
+quotes, arrows) on paste, silently truncating the rest of the line. If you
+hit a syntax error right after pasting code, check the line the error
+points to for anything that isn't a plain ASCII character.
+
 ## Known limitations (left visible on purpose, not hidden)
 
 - Adding a repo blocks on GitHub's API rate limits like anything else using
