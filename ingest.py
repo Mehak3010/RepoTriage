@@ -1,5 +1,5 @@
 """
-RepoTriage — Day 1: Ingest & clean GitHub issues
+RepoTriage: Ingest & clean GitHub issues
 
 Pulls issues from a target repo via the GitHub REST API and saves a clean,
 structured dataset (Parquet + CSV) ready for embedding in Day 2.

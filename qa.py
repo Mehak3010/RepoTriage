@@ -1,5 +1,5 @@
 """
-RepoTriage — Day 3: LLM Q&A + lightweight triage reasoning
+RepoTriage: LLM Q&A + lightweight triage reasoning
 
 Two modes:
   1. qa      — ask natural-language questions, answered from retrieved issues

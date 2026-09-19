@@ -1,5 +1,5 @@
 """
-RepoTriage — Day 4: Guardrails
+RepoTriage: Guardrails
 
 Lightweight, dependency-free guardrails for the API layer:
   - Input validation (length limits, empty input, basic prompt-injection heuristics)

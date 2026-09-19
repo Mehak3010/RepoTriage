@@ -1,5 +1,5 @@
 """
-RepoTriage — Day 2: Embed issues + upload to Qdrant
+RepoTriage: Embed issues + upload to Qdrant
 
 Embeds each issue's title+body using a free local model (no API key, no
 per-call cost) and uploads the vectors + metadata to a Qdrant collection
